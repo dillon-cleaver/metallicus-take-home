@@ -13,6 +13,9 @@ import { useState } from "react";
 import { Colors } from "../constants/styles";
 import { usePressAnimation } from "../hooks/usePressAnimation";
 import * as Haptics from "expo-haptics";
+import { useNavigation } from "@react-navigation/native";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import type { RootStackParamList } from "../App";
 
 export default function HomeScreen() {
   const colorScheme = useColorScheme();
@@ -20,6 +23,9 @@ export default function HomeScreen() {
 
   const helloMetalAnimation = usePressAnimation();
   const getDogAnimation = usePressAnimation();
+
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const toggleTheme = (value: boolean) => {
     setIsDarkMode(value);
@@ -38,6 +44,10 @@ export default function HomeScreen() {
   };
 
   const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+
+  const handleDogScreenNav = () => {
+    navigation.navigate("Dog");
+  };
 
   // TODO: Investigate best practices for accessibility using <Pressable> versus <Button>
 
@@ -68,6 +78,7 @@ export default function HomeScreen() {
         <Text style={styles.buttonText}>Hello Metal</Text>
       </AnimatedPressable>
       <AnimatedPressable
+        onPress={handleDogScreenNav}
         onPressIn={getDogAnimation.animatePressIn}
         onPressOut={getDogAnimation.animatePressOut}
         style={[

@@ -6,12 +6,16 @@ import DogScreen from "./screens/DogScreen";
 const RootStack = createNativeStackNavigator({
   screens: {
     Home: HomeScreen,
-    // TODO - Double check this implementation
     Dog: DogScreen,
   },
 });
 
 const Navigation = createStaticNavigation(RootStack);
+
+export type RootStackParamList = {
+  Home: undefined;
+  Dog: undefined;
+};
 
 export default function App() {
   return <Navigation />;
