@@ -1,6 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { View, StyleSheet, Text, useColorScheme } from "react-native";
 import { Colors } from "../constants/styles";
+import { DogImage } from "../components/DogImage";
 
 export default function DogScreen() {
   const colorScheme = useColorScheme();
@@ -15,6 +16,7 @@ export default function DogScreen() {
       <Text style={[styles.text, themeTextStyle]}>
         Welcome to the Dog Screen!
       </Text>
+      <DogImage />
       <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
     </View>
   );
@@ -24,7 +26,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    gap: 8,
     justifyContent: "center",
+    paddingHorizontal: 16,
   },
   text: {
     fontSize: 20,

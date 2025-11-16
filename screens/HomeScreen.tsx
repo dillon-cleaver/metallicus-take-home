@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     gap: 8,
     justifyContent: "center",
+    paddingHorizontal: 16,
   },
   text: {
     fontSize: 20,
