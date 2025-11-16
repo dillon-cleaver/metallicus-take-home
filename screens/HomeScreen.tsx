@@ -12,6 +12,7 @@ import {
 import { useState } from "react";
 import { Colors } from "../constants/styles";
 import { usePressAnimation } from "../hooks/usePressAnimation";
+import * as Haptics from "expo-haptics";
 
 export default function HomeScreen() {
   const colorScheme = useColorScheme();
@@ -31,6 +32,13 @@ export default function HomeScreen() {
   const themeContainerStyle =
     colorScheme === "light" ? styles.lightContainer : styles.darkContainer;
 
+  const handleHelloMetalPress = () => {
+    alert("Hello Metal");
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+  };
+
+  const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
+
   // TODO: Investigate best practices for accessibility using <Pressable> versus <Button>
 
   return (
@@ -48,32 +56,27 @@ export default function HomeScreen() {
         />
         <Text style={[styles.themeToggleText, themeTextStyle]}>Dark</Text>
       </View>
-      <Pressable
+      <AnimatedPressable
+        onPress={handleHelloMetalPress}
         onPressIn={helloMetalAnimation.animatePressIn}
         onPressOut={helloMetalAnimation.animatePressOut}
+        style={[
+          styles.button,
+          { transform: [{ scale: helloMetalAnimation.scale }] },
+        ]}
       >
-        <Animated.View
-          style={[
-            styles.button,
-            { transform: [{ scale: helloMetalAnimation.scale }] },
-          ]}
-        >
-          <Text style={styles.buttonText}>Hello Metal</Text>
-        </Animated.View>
-      </Pressable>
-      <Pressable
+        <Text style={styles.buttonText}>Hello Metal</Text>
+      </AnimatedPressable>
+      <AnimatedPressable
         onPressIn={getDogAnimation.animatePressIn}
         onPressOut={getDogAnimation.animatePressOut}
+        style={[
+          styles.button,
+          { transform: [{ scale: getDogAnimation.scale }] },
+        ]}
       >
-        <Animated.View
-          style={[
-            styles.button,
-            { transform: [{ scale: getDogAnimation.scale }] },
-          ]}
-        >
-          <Text style={styles.buttonText}>Get Dog</Text>
-        </Animated.View>
-      </Pressable>
+        <Text style={styles.buttonText}>Get Dog</Text>
+      </AnimatedPressable>
       <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
     </View>
   );
