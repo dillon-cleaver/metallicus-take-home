@@ -6,13 +6,19 @@ import {
   Switch,
   useColorScheme,
   Appearance,
+  Pressable,
+  Animated,
 } from "react-native";
 import { useState } from "react";
 import { Colors } from "../constants/styles";
+import { usePressAnimation } from "../hooks/usePressAnimation";
 
 export default function HomeScreen() {
   const colorScheme = useColorScheme();
   const [isDarkMode, setIsDarkMode] = useState(colorScheme === "dark");
+
+  const helloMetalAnimation = usePressAnimation();
+  const getDogAnimation = usePressAnimation();
 
   const toggleTheme = (value: boolean) => {
     setIsDarkMode(value);
@@ -24,6 +30,8 @@ export default function HomeScreen() {
     colorScheme === "light" ? styles.lightThemeText : styles.darkThemeText;
   const themeContainerStyle =
     colorScheme === "light" ? styles.lightContainer : styles.darkContainer;
+
+  // TODO: Investigate best practices for accessibility using <Pressable> versus <Button>
 
   return (
     <View style={[styles.container, themeContainerStyle]}>
@@ -40,6 +48,32 @@ export default function HomeScreen() {
         />
         <Text style={[styles.themeToggleText, themeTextStyle]}>Dark</Text>
       </View>
+      <Pressable
+        onPressIn={helloMetalAnimation.animatePressIn}
+        onPressOut={helloMetalAnimation.animatePressOut}
+      >
+        <Animated.View
+          style={[
+            styles.button,
+            { transform: [{ scale: helloMetalAnimation.scale }] },
+          ]}
+        >
+          <Text style={styles.buttonText}>Hello Metal</Text>
+        </Animated.View>
+      </Pressable>
+      <Pressable
+        onPressIn={getDogAnimation.animatePressIn}
+        onPressOut={getDogAnimation.animatePressOut}
+      >
+        <Animated.View
+          style={[
+            styles.button,
+            { transform: [{ scale: getDogAnimation.scale }] },
+          ]}
+        >
+          <Text style={styles.buttonText}>Get Dog</Text>
+        </Animated.View>
+      </Pressable>
       <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
     </View>
   );
@@ -49,6 +83,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
+    gap: 8,
     justifyContent: "center",
   },
   text: {
@@ -75,5 +110,18 @@ const styles = StyleSheet.create({
   },
   darkThemeText: {
     color: Colors.dark.text,
+  },
+  button: {
+    backgroundColor: "#007AFF",
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 8,
+    marginVertical: 6,
+  },
+  buttonText: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    fontWeight: "600",
+    textAlign: "center",
   },
 });
