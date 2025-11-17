@@ -32,6 +32,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
+    fontFamily: 'Fraunces_400Regular',
+    lineHeight: 28,
   },
   lightContainer: {
     backgroundColor: Colors.light.background,

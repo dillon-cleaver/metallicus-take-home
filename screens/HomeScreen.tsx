@@ -104,6 +104,8 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     marginBottom: 20,
+    fontFamily: 'Fraunces_400Regular',
+    lineHeight: 28,
   },
   themeToggleContainer: {
     flexDirection: "row",
@@ -113,6 +115,8 @@ const styles = StyleSheet.create({
   themeToggleText: {
     fontSize: 16,
     marginHorizontal: 10,
+    fontFamily: 'Fraunces_400Regular',
+    lineHeight: 22,
   },
   lightContainer: {
     backgroundColor: Colors.light.background,
@@ -134,9 +138,11 @@ const styles = StyleSheet.create({
     marginVertical: 6,
   },
   buttonText: {
-    color: "#FFFFFF",
+    color: '#FFFFFF',
     fontSize: 16,
-    fontWeight: "600",
-    textAlign: "center",
+    fontWeight: '600',
+    textAlign: 'center',
+    fontFamily: 'Fraunces_700Bold',
+    lineHeight: 22,
   },
 });
