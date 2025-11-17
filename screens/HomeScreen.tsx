@@ -6,12 +6,10 @@ import {
   Switch,
   useColorScheme,
   Appearance,
-  Pressable,
-  Animated,
 } from "react-native";
 import { useState } from "react";
 import { Colors } from "../constants/styles";
-import { usePressAnimation } from "../hooks/usePressAnimation";
+import { AnimatedButton } from "../components/AnimatedButton";
 import * as Haptics from "expo-haptics";
 import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -20,9 +18,6 @@ import type { RootStackParamList } from "../App";
 export default function HomeScreen() {
   const colorScheme = useColorScheme();
   const [isDarkMode, setIsDarkMode] = useState(colorScheme === "dark");
-
-  const helloMetalAnimation = usePressAnimation();
-  const getDogAnimation = usePressAnimation();
 
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -43,13 +38,9 @@ export default function HomeScreen() {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
   };
 
-  const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
-
   const handleDogScreenNav = () => {
     navigation.navigate("Dog");
   };
-
-  // TODO: Investigate best practices for accessibility using <Pressable> versus <Button>
 
   return (
     <View style={[styles.container, themeContainerStyle]}>
@@ -66,28 +57,8 @@ export default function HomeScreen() {
         />
         <Text style={[styles.themeToggleText, themeTextStyle]}>Dark</Text>
       </View>
-      <AnimatedPressable
-        onPress={handleHelloMetalPress}
-        onPressIn={helloMetalAnimation.animatePressIn}
-        onPressOut={helloMetalAnimation.animatePressOut}
-        style={[
-          styles.button,
-          { transform: [{ scale: helloMetalAnimation.scale }] },
-        ]}
-      >
-        <Text style={styles.buttonText}>Hello Metal</Text>
-      </AnimatedPressable>
-      <AnimatedPressable
-        onPress={handleDogScreenNav}
-        onPressIn={getDogAnimation.animatePressIn}
-        onPressOut={getDogAnimation.animatePressOut}
-        style={[
-          styles.button,
-          { transform: [{ scale: getDogAnimation.scale }] },
-        ]}
-      >
-        <Text style={styles.buttonText}>Get Dog</Text>
-      </AnimatedPressable>
+      <AnimatedButton onPress={handleHelloMetalPress} title="Hello Metal" />
+      <AnimatedButton onPress={handleDogScreenNav} title="Get Dog" />
       <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
     </View>
   );
@@ -104,7 +75,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     marginBottom: 20,
-    fontFamily: 'Fraunces_400Regular',
+    fontFamily: "Fraunces_400Regular",
     lineHeight: 28,
   },
   themeToggleContainer: {
@@ -115,7 +86,7 @@ const styles = StyleSheet.create({
   themeToggleText: {
     fontSize: 16,
     marginHorizontal: 10,
-    fontFamily: 'Fraunces_400Regular',
+    fontFamily: "Fraunces_400Regular",
     lineHeight: 22,
   },
   lightContainer: {
@@ -129,20 +100,5 @@ const styles = StyleSheet.create({
   },
   darkThemeText: {
     color: Colors.dark.text,
-  },
-  button: {
-    backgroundColor: "#007AFF",
-    paddingVertical: 12,
-    paddingHorizontal: 24,
-    borderRadius: 8,
-    marginVertical: 6,
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: '600',
-    textAlign: 'center',
-    fontFamily: 'Fraunces_700Bold',
-    lineHeight: 22,
   },
 });
