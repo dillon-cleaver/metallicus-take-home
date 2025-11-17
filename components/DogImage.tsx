@@ -33,12 +33,12 @@ const styles = StyleSheet.create({
   },
   lightThemeText: {
     color: Colors.light.text,
-    fontFamily: 'Fraunces_400Regular',
+    fontFamily: "Fraunces_400Regular",
     lineHeight: 20,
   },
   darkThemeText: {
     color: Colors.dark.text,
-    fontFamily: 'Fraunces_400Regular',
+    fontFamily: "Fraunces_400Regular",
     lineHeight: 20,
   },
 });
